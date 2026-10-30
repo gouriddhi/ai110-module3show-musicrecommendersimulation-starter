@@ -21,16 +21,22 @@ Prompts:
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+Think of the recommender as a judge at a talent show who gives every song in the catalog a score out of 6 based on how well it fits one listener, then announces the top five.
 
-Prompts:  
+**What the listener tells it.** Each listener has four preferences: a favorite genre (like pop), a favorite mood (like sad), how energetic they want the music to be (a number from 0, very calm, to 1, very intense), and whether they like acoustic, unplugged-sounding music or more produced, electronic music.
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
+**What it looks at in each song.** Every song has a genre, a mood, an energy level, and an "acousticness" level that says how unplugged it sounds. The catalog also lists tempo, danceability, and happiness, but the model ignores them for now. Tempo and danceability mostly repeat what energy already says, and happiness is saved for a later experiment.
 
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+**How a song earns points.**
+
+- **Genre (up to 2 points).** A song in the listener's favorite genre gets the full 2 points. A close relative, such as "indie pop" or "pop punk" for a pop fan, gets 1 point. Genre is worth the most because it is the most reliable sign of what someone likes.
+- **Mood (1.5 points).** A song with exactly the listener's mood gets 1.5 points. Otherwise it gets nothing.
+- **Energy (up to 2 points).** This rewards songs whose energy is *close* to what the listener asked for, not simply louder or quieter ones. A song right on target earns the full 2 points, and the further away it is, the fewer it gets. So someone who wants calm music gets calm songs, not the most intense ones in the catalog.
+- **Acoustic sound (up to 0.5 points).** A small bonus for songs that match the listener's taste for acoustic or electronic sound. It is kept small because in this catalog acoustic songs are almost always low-energy too, so a bigger bonus would reward calmness twice.
+
+**How it picks the winners.** The points are added up, the songs are lined up from highest to lowest, and the top five are shown. If two songs tie, the one whose energy is closer to the listener's target goes first. Every recommendation comes with its reasons, such as "genre match: pop (+2.0)" or "energy 0.43 vs. target 0.45 (+1.96)", so the listener can see exactly why a song was picked.
+
+**Changes from the starter.** The starter code did no scoring at all; it simply returned the first five songs in the file. I added the whole point system above, plus the plain-language reasons. While designing it I also made two adjustments. I raised mood from 1 point to 1.5, because at 1 point a song that only matched the genre easily beat a song that fit the listener's mood and energy. I also added partial credit for related genres, so "indie pop" isn't treated as a total mismatch for a pop fan.
 
 ---
 
