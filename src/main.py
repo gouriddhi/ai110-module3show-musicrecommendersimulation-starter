@@ -9,7 +9,12 @@ You will implement the functions in recommender.py:
 - recommend_songs
 """
 
-from recommender import load_songs, recommend_songs
+try:
+    # Run as a module from the project root: python -m src.main
+    from .recommender import MAX_SCORE, load_songs, recommend_songs
+except ImportError:
+    # Run as a script: python src/main.py
+    from recommender import MAX_SCORE, load_songs, recommend_songs
 
 
 # Taste profiles to compare side by side
@@ -58,7 +63,7 @@ def print_recommendations(name: str, user_prefs: dict, recommendations: list) ->
     for rank, (song, score, explanation) in enumerate(recommendations, start=1):
         print()
         print(f" #{rank}  {song['title']} by {song['artist']}")
-        print(f"     Score: {score:.2f} / 6.00")
+        print(f"     Score: {score:.2f} / {MAX_SCORE:.2f}")
         for reason in explanation.split("; "):
             print(f"       - {reason}")
 
