@@ -132,14 +132,15 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Sample Recommendation Output
 
-Output of `python3 src/main.py` for a listener who likes mellow, emotional pop ballads (`favorite_genre=pop`, `favorite_mood=sad`, `target_energy=0.45`, `likes_acoustic=True`):
+Output of `python3 src/main.py`, which loads all 20 songs (`Loaded songs: 20`) and runs each taste profile below.
+
+### Sad Pop Ballads
+
+`favorite_genre=pop`, `favorite_mood=sad`, `target_energy=0.45`, `likes_acoustic=True`
 
 ```
-Loading songs from data/songs.csv...
-Loaded songs: 20
-
 ============================================================
-                    Top 5 recommendations
+           Sad Pop Ballads: top 5 recommendations
                    pop / sad / energy 0.45
 ============================================================
 
@@ -173,6 +174,137 @@ Loaded songs: 20
        - partial genre match: pop punk ~ pop (+1.0)
        - energy 0.66 vs. target 0.45 (+1.58)
        - acoustic sound (+0.17)
+
+============================================================
+```
+
+### High-Energy Pop
+
+`favorite_genre=pop`, `favorite_mood=happy`, `target_energy=0.85`, `likes_acoustic=False`
+
+```
+============================================================
+           High-Energy Pop: top 5 recommendations
+                  pop / happy / energy 0.85
+============================================================
+
+ #1  Sunrise City by Neon Echo
+     Score: 5.85 / 6.00
+       - genre match: pop (+2.0)
+       - mood match: happy (+1.5)
+       - energy 0.82 vs. target 0.85 (+1.94)
+       - produced/electronic sound (+0.41)
+
+ #2  Rooftop Lights by Indigo Parade
+     Score: 4.65 / 6.00
+       - partial genre match: indie pop ~ pop (+1.0)
+       - mood match: happy (+1.5)
+       - energy 0.76 vs. target 0.85 (+1.82)
+       - produced/electronic sound (+0.33)
+
+ #3  Gym Hero by Max Pulse
+     Score: 4.31 / 6.00
+       - genre match: pop (+2.0)
+       - energy 0.93 vs. target 0.85 (+1.84)
+       - produced/electronic sound (+0.47)
+
+ #4  drivers license by Olivia Rodrigo
+     Score: 3.30 / 6.00
+       - genre match: pop (+2.0)
+       - energy 0.43 vs. target 0.85 (+1.16)
+       - produced/electronic sound (+0.14)
+
+ #5  Here Comes the Sun by The Beatles
+     Score: 3.23 / 6.00
+       - mood match: happy (+1.5)
+       - energy 0.55 vs. target 0.85 (+1.40)
+       - produced/electronic sound (+0.33)
+
+============================================================
+```
+
+### Chill Lofi
+
+`favorite_genre=lofi`, `favorite_mood=chill`, `target_energy=0.35`, `likes_acoustic=True`
+
+```
+============================================================
+              Chill Lofi: top 5 recommendations
+                 lofi / chill / energy 0.35
+============================================================
+
+ #1  Library Rain by Paper Lanterns
+     Score: 5.93 / 6.00
+       - genre match: lofi (+2.0)
+       - mood match: chill (+1.5)
+       - energy 0.35 vs. target 0.35 (+2.00)
+       - acoustic sound (+0.43)
+
+ #2  Midnight Coding by LoRoom
+     Score: 5.71 / 6.00
+       - genre match: lofi (+2.0)
+       - mood match: chill (+1.5)
+       - energy 0.42 vs. target 0.35 (+1.86)
+       - acoustic sound (+0.35)
+
+ #3  Focus Flow by LoRoom
+     Score: 4.29 / 6.00
+       - genre match: lofi (+2.0)
+       - energy 0.40 vs. target 0.35 (+1.90)
+       - acoustic sound (+0.39)
+
+ #4  Spacewalk Thoughts by Orbit Bloom
+     Score: 3.82 / 6.00
+       - mood match: chill (+1.5)
+       - energy 0.28 vs. target 0.35 (+1.86)
+       - acoustic sound (+0.46)
+
+ #5  Coffee Shop Stories by Slow Stereo
+     Score: 2.40 / 6.00
+       - energy 0.37 vs. target 0.35 (+1.96)
+       - acoustic sound (+0.45)
+
+============================================================
+```
+
+### Deep Intense Rock
+
+`favorite_genre=rock`, `favorite_mood=intense`, `target_energy=0.9`, `likes_acoustic=False`
+
+```
+============================================================
+          Deep Intense Rock: top 5 recommendations
+                rock / intense / energy 0.90
+============================================================
+
+ #1  Storm Runner by Voltline
+     Score: 5.93 / 6.00
+       - genre match: rock (+2.0)
+       - mood match: intense (+1.5)
+       - energy 0.91 vs. target 0.90 (+1.98)
+       - produced/electronic sound (+0.45)
+
+ #2  Gym Hero by Max Pulse
+     Score: 3.92 / 6.00
+       - mood match: intense (+1.5)
+       - energy 0.93 vs. target 0.90 (+1.94)
+       - produced/electronic sound (+0.47)
+
+ #3  Here Comes the Sun by The Beatles
+     Score: 3.62 / 6.00
+       - genre match: rock (+2.0)
+       - energy 0.55 vs. target 0.90 (+1.30)
+       - produced/electronic sound (+0.33)
+
+ #4  Laser Bloom by Kinetic Drift
+     Score: 2.38 / 6.00
+       - energy 0.95 vs. target 0.90 (+1.90)
+       - produced/electronic sound (+0.48)
+
+ #5  Iron Tempest by Graveforge
+     Score: 2.35 / 6.00
+       - energy 0.97 vs. target 0.90 (+1.86)
+       - produced/electronic sound (+0.48)
 
 ============================================================
 ```
