@@ -11,7 +11,7 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+My version is **VibeCheck 1.0**, a command-line recommender for a 20-song catalog. You give it a taste profile: a favorite genre, a favorite mood, a target energy level, and whether you like acoustic music. It scores every song out of 6.5 points, giving the most weight to how close a song's energy is to your target, with partial credit for related genres and moods (like metal for a rock fan). It prints the top 5 songs, each with the reasons behind its score. I tested it on four taste profiles and a set of tricky edge cases, tried several weight settings, and documented the biases I found.
 
 ---
 
@@ -349,28 +349,24 @@ I ran each experiment against the same four taste profiles (Sad Pop Ballads, Hig
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
+- **Tiny, uneven catalog.** There are only 20 songs, and 7 of them are pop-type. Pop fans get several strong matches, while fans of hip hop, EDM, synthwave, or metal have one song in their genre.
+- **Labels, not sound.** It only sees genre and mood labels plus a few numbers. It can't hear the music or understand lyrics, so a pop workout song can still land in a sad-pop list.
+- **"Acoustic" means "calm."** No song is both acoustic and high-energy, so someone who likes loud acoustic music can't be served.
+- **Hand-picked similarity.** Related genres and moods only get partial credit if they're in my lists. Labels with no relatives (like hip hop or "confident") only score on an exact match, so those songs are rarely recommended.
+- **No input checks.** An empty genre gives every song points, energy outside 0 to 1 gives negative points, and missing or text values can crash the program.
+- **One taste per person.** Each profile allows one genre and one mood, so mixed tastes get flattened.
 
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+See Sections 5 and 6 of the [model card](model_card.md) for the numbers behind these.
 
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
+See the full [**Model Card**](model_card.md) for details on the data, scoring, evaluation, and biases.
 
-[**Model Card**](model_card.md)
+Building this showed me that a recommender doesn't "know" music. It turns each song into a few numbers and labels, compares them to what the listener asked for, and adds up points. That simple process still feels personal. When *drivers license* came back first for my sad-pop profile, with reasons attached, it felt like the app understood the request. But the same rules also put a gym anthem in that sad list, because it matched on genre. A prediction is only as good as the features it can see. My system can't hear that *Gym Hero* sounds pumped up, not sad. It only sees "pop" and an energy number.
 
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+I also learned that bias can come from the data, not just the rules. My scoring treats every user the same way, but the catalog doesn't. Pop-type songs make up 7 of the 20, so pop fans get several strong matches, while hip hop or metal fans get one and then songs picked mostly on energy. Labels add more bias: until I added related genres, a metal song got zero credit for a rock fan, and songs whose mood had no "similar" match were almost never recommended. In a real app with millions of users, these gaps would decide which artists get heard and which listeners get worse suggestions, often without anyone noticing.
 
 
 
